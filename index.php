@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<?php 
+    if(!isset($_SESSION)) { 
+        session_start(); 
+    } 
+?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -17,7 +24,21 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div id="front_page_content" class="container">
+        <?php  
+
+            if(!isset($_SESSION['LOGIN_STATUS']) || !$_SESSION['LOGIN_STATUS']) {
+
+                $_SESSION['LOGIN_STATUS']=FALSE;
+                include('login_reg.php');
+
+            } else {
+
+                include("profile.php");
+            }
+
+        ?>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
