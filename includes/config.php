@@ -9,7 +9,7 @@ $host = "localhost";
 //$host = "yourserver.net";
 $username = "root"; //username for database here
 $password = "colt"; //password for database here
-$database =  "image_base"; //name of your database here
+$database =  "capture"; //name of your database here
 
 $mysqli= new mysqli($host, $username, $password, $database); 
                
@@ -18,7 +18,11 @@ if(mysqli_connect_errno()) {
 	exit();
 } 
 
-DEFINE('WEBSITE_URL', 'http://localhost');
+define('WEBSITE_URL', 'http://localhost');
+define("ENCRYPTION_KEY", "_@#$)^@*&");
+
+
+
 
 
 ?>

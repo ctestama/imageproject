@@ -38,6 +38,10 @@
 		      	<input id="sub" type="button" value="Register" onclick="regSub()" />
 		    </div>
 
+		    <div id="message">
+		    
+		    </div>
+
 		</form>
     		
     </div>
@@ -58,8 +62,10 @@
 	            <input class ="sidebutton" type="button" value="Login" onclick="validLogin()"></input>
 	    	</div>	
 
+	    	<div id="message2">
+		    </div>
+
     	</form>	
     </div>
 </div>
 
-<script src="js/custom_colton.js"></script>
