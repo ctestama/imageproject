@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 function errorCheck($error) {
 	$output = '';
 	if(!empty($error)) {
