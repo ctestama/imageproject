@@ -2,7 +2,7 @@
 session_start();
 
 //need to include the database configuration and mysqli object
-include('includes/config.php');
+include('config.php');
 
 
 //we need a function in here to grab images for the database and output as a list of links to the images

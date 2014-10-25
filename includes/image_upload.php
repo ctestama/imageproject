@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include('includes/config.php');
+include('config.php');
 
 //this file can include a function that uploads a user image to 
 //the image folder
