@@ -5,7 +5,7 @@ session_start();
 include('includes/config.php');
 
 
-//we need a function in here to grab images for the database and output as markup with image tags
+//we need a function in here to grab images for the database and output as a list of links to the images
 //will need to get the user_id variable from a post
 
 if(isset($_GET['uid']) {

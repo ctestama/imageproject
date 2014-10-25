@@ -98,7 +98,8 @@ function login($mysqli, $email, $password) {
         $res->execute();
         $res->store_result();
         $checkUser=$res->num_rows();
-
+        $res->bind_result($user_id, $fname, $lname, $email, $pword);
+       
     } else {
     	$output = "Query failure";
     	$checkUser = 0;
@@ -106,9 +107,10 @@ function login($mysqli, $email, $password) {
 
     if($checkUser >=1) {
     	$_SESSION['LOGIN_STATUS'] = TRUE;
-    	$_SESSION['EMAIL'] = $email;
-    	//$row = $res->fetch_assoc();
-    	//$_SESSION['UID'] = $row['user_id'];
+    	$row = $res->fetch();
+
+    	$_SESSION['uid'] = $user_id;
+    	$_SESSION['fname'] = $fname;
     	$output = "Success";
     } else {
     	$output= "Authentication Failed";

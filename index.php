@@ -15,6 +15,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,12 +25,12 @@
     <![endif]-->
   </head>
   <body>
-    <div id="front_page_content" class="container">
+    <div id="front_page_content" class="container-fluid">
+
         <?php  
 
             if(!isset($_SESSION['LOGIN_STATUS']) || !$_SESSION['LOGIN_STATUS']) {
 
-                $_SESSION['LOGIN_STATUS']=FALSE;
                 include('login_reg.php');
                 
             } else {
