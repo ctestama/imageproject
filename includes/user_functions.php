@@ -76,6 +76,7 @@ function register($mysqli, $fname, $lname, $email, $password) {
         //if user insertion was successful
         if (mysqli_affected_rows($mysqli) == 1) { 
         	$output = login($mysqli, $email, $password);
+        	//echo $output;
         
         } else { 
         	$output = "Failed to insert user.";
@@ -84,7 +85,6 @@ function register($mysqli, $fname, $lname, $email, $password) {
         
     }
 
-   	//mysqli_close($mysqli);
    	return $output;
 }
 

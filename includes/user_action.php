@@ -46,6 +46,7 @@ if(isset($_POST['action']) && !empty($_POST['action'])) {
 	    $errorTest = errorCheck($error);
 	    if($errorTest=='Success') {
 	    	$registration = register($mysqli, $fname, $lname, $email, $password);
+	    	echo $registration;
 	    } else {
 	    	echo $errorTest;
 	    }
