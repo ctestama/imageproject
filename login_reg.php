@@ -4,6 +4,9 @@
 
 
 <div id="login_reg" class="row">
+	<div class="col-md-12" id="login_head">
+	Capture
+	</div>
     <div class="col-md-6">
     	<form  class="registration_form">
 
@@ -12,7 +15,6 @@
 
 	    	<p>Create A new Account </p>
 	    
-
 	    	<div class="elements">
 	    		<label for="fname">Firstname :</label>
 	      		<input type="text" id="fname" name="fname" size="25" />
@@ -38,7 +40,7 @@
 		      	<input id="sub" type="button" value="Register" onclick="regSub()" />
 		    </div>
 
-		    <div id="message">
+		    <div class="error" id="message">
 		    
 		    </div>
 
@@ -62,7 +64,7 @@
 	            <input class ="sidebutton" type="button" value="Login" onclick="validLogin()"></input>
 	    	</div>	
 
-	    	<div id="message2">
+	    	<div class="error" id="message2">
 		    </div>
 
     	</form>	
