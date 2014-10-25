@@ -1,7 +1,7 @@
 /*Put your custom style changes here*/
 
 #header {
-	background-color: green;
+	background-color: darkgreen;
 	font-family: serif;
 	font-size: 34px;
 	font-style: bold;
@@ -30,7 +30,7 @@
 
 #login_head {
 	font-family: Georgia;
-	background-color: green;
+	background-color: darkgreen;
 	font-size: 34px;
 	font-style: bold;
 	padding-bottom: 10px;
@@ -49,4 +49,12 @@
 
 .error ol {
 	list-style-type: none;
+}
+
+#image_button {
+	margin-top: 20px;
+}
+
+#logout {
+	float: right;
 }
