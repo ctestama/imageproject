@@ -53,10 +53,8 @@ function logout(){
              type: "POST",
              url: "includes/user_action.php",
              data: dataString,
-             success: function(result){
-                if(result=="Success") {
-                    location.reload();
-                } 
+             success: function(result) {
+                location.reload();  
              }
     });
 

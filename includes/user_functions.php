@@ -84,7 +84,7 @@ function register($mysqli, $fname, $lname, $email, $password) {
         
     }
 
-   	mysqli_close($mysqli);
+   	//mysqli_close($mysqli);
    	return $output;
 }
 
