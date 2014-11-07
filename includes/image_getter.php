@@ -25,17 +25,17 @@ function imageGetter($mysqli, $uid) {
 	
 	
 	
-	if (mysql_num_rows($result) != 0)
+	if (mysqli_num_rows($result) != 0)
 	{
 		//selects the image DB to work with
-		$imageSelect = mysqli_select_db("image", $dbhandle)
+		$imageSelected = mysqli_select_db("image", $dbhandle)
 		 or die("Could not select image database.");
 		
 		//***MAY NEED FIXING***execute the SQL query and return records,in this case the image data.
 		$imageresult = mysqli_query("SELECT * FROM image Where user_id='$uid' ");
 		
 		
-		if (mysql_num_rows($imageresult) != 0)
+		if (mysqli_num_rows($imageresult) != 0)
 		{
 			//***NEEDS FIXED***code to create a list of images to display here
 			/*I need to fix the parameters in the next line and the following lines below it need modified 
