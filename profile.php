@@ -24,7 +24,7 @@ if(isset($_SESSION['LOGIN_STATUS'] )&& $_SESSION['LOGIN_STATUS']) {
 	</div>
 </div>	
 <div class="container">
-	<div class="col-md-12">
+	<div class="col-md-12" id="edit_container">
 		<div class="slide_container">
 			<input type="text" id="img_slide" class="span2" value="" data-slider-min="0" data-slider-max="100" 
 			data-slider-step="1" data-slider-value="50" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">

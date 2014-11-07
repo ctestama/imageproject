@@ -23,6 +23,8 @@ function image_grab(img) {
 
     image.src = img;
 
+    $('#edit_container').slideDown();
+
 }
 
 
