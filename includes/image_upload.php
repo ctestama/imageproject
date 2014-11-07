@@ -10,50 +10,53 @@ include('config.php');
 
 function image_upload()
 {
-    $target_dir = "../images/";
-    $target_dir = $target_dir . basename( $_FILES["imagefile"]["name"]);
-    $uploadOk=1;
-
-    // Check if file already exists
-    if (file_exists('../images/' . $_FILES["imagefile"]["name"])) {
-        echo "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
-
-    // Check file size
-    if ($imagefile_size > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } 
-    else {
-        if (move_uploaded_file($_FILES["imagefile"]["tmp_name"], $target_dir)) {
-        
-            $imgData = file_get_contents($filename);
-            $size = getimagesize($filename);
-            mysql_connect("localhost", "$username", "$password");
-            mysql_select_db ("images");
-            $sql = sprintf("INSERT INTO images
-            (image_type, image, image_size, image_name)
-            VALUES
-            ('%s', '%s', '%d', '%s')",
-            mysql_real_escape_string($size['mime']),
-            mysql_real_escape_string($imgData),
-            $size[3],
-            mysql_real_escape_string($_FILES['imagefile']['name'])
-            );
-            mysql_query($sql);
-        
-            echo "The file ". basename( $_FILES["imagefile"]["name"]). " has been uploaded.";
+    if(isset($_FILES["imagefile"])&&isset($_SESSION['LOGIN_STATUS'])&&$_SESSION['LOGIN_STATUS']) {
+        $target_dir = "../images/";
+        $target_dir = $target_dir . basename( $_FILES["imagefile"]["name"]);
+        $uploadOk=1;
+        // Check if file already exists
+        if (file_exists('../images/' . $_FILES["imagefile"]["name"])) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+        $imagefile_size = $_FILES['imagefile']['size'];
+        // Check file size
+        if ($imagefile_size > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        //Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "<div>Your file was not uploaded. Please try again.<a href='../index.php'>Return</a></div>";
+            //if everything is ok, try to upload file
         } 
         else {
-            echo "Sorry, there was an error uploading your file.";
-        }
+            if (move_uploaded_file($_FILES["imagefile"]["tmp_name"], $target_dir)) {
+                echo "<div>The file ". basename( $_FILES["imagefile"]["name"]). " has been uploaded. <a class='btn btn-primary'href='../index.php'>Return</a></div>";
+                if(isset($_SESSION['uid'])) {
+                    $username = $_SESSION['uid'];
+                    if($uploadOk !=0) {
+                        if($query_insert_image = $mysqli->prepare("INSERT INTO images (user_id, image_path) VALUES (?, ?)")) {
+                            $query_insert_image->bind_param("ss", $username, $target_dir);
+                            $query_insert_image->execute();
+                        }
+                        if (mysqli_affected_rows($mysqli) != 1) {
+                            echo "<div>Query Failure. Please try to upload your image again.</div>";
+                        }
+                    } 
+                    else {
+                        echo "<div>Query Failure. Please try to upload your image again.</div>";
+                    }
+                } 
+                else {
+                    echo "<div>Failed to grab your User Id. Try logging in again.</div>";
+                }
+            } 
+            else {
+                echo "<div>Sorry, there was an error uploading your file.</div>";
+            }
+        }  
+
     }
 }
 
@@ -62,99 +65,110 @@ function image_upload()
 //which will overwrite a profile photo
 function profile_image()
 {
-    $target_dir = "../profile_images/";
-    $target_dir = $target_dir . basename( $_FILES["imagefile"]["name"]);
-    $uploadOk=1;
+    if(isset($_FILES["imagefile"])&&isset($_SESSION['LOGIN_STATUS'])&&$_SESSION['LOGIN_STATUS']) {
+        $target_dir = "../profile_images/";
+        $target_dir = $target_dir . basename( $_FILES["imagefile"]["name"]);
+        $uploadOk=1;
 
-    // Check if file already exists
-    if (file_exists('../profile_images/' . $_FILES["imagefile"]["name"])) {
-        echo "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
+        // Check if file already exists
+        if (file_exists('../profile_images/' . $_FILES["imagefile"]["name"])) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
 
-    // Check file size
-    if ($imagefile_size > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
+        // Check file size
+        if ($imagefile_size > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
 
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } 
-    else {
-        if (move_uploaded_file($_FILES["imagefile"]["tmp_name"], $target_dir)) {
-            //code to insert image into profile
-            $imgData = file_get_contents($filename);
-            $size = getimagesize($filename);
-            mysql_connect("localhost", "$username", "$password");
-            mysql_select_db ("profile_images");
-            $sql = sprintf("INSERT INTO profile_images
-            (image_type, image, image_size, image_name)
-            VALUES
-            ('%s', '%s', '%d', '%s')",
-            mysql_real_escape_string($size['mime']),
-            mysql_real_escape_string($imgData),
-            $size[3],
-            mysql_real_escape_string($_FILES['imagefile']['name'])
-            );
-            mysql_query($sql);
-            
-            echo "The file ". basename( $_FILES["imagefile"]["name"]). " has been uploaded.";
+        //Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "<div>Your file was not uploaded. Please try again.<a href='../index.php'>Return</a></div>";
+            //if everything is ok, try to upload file
+        } 
+        else {
+            if (move_uploaded_file($_FILES["imagefile"]["tmp_name"], $target_dir)) {
+                echo "<div>The file ". basename( $_FILES["imagefile"]["name"]). " has been uploaded. <a class='btn btn-primary'href='../index.php'>Return</a></div>";
+                if(isset($_SESSION['uid'])) {
+                    $username = $_SESSION['uid'];
+                    if($uploadOk !=0) {
+                        if($query_insert_image = $mysqli->prepare("INSERT INTO profile_images (user_id, image_path) VALUES (?, ?)")) {
+                            $query_insert_image->bind_param("ss", $username, $target_dir);
+                            $query_insert_image->execute();
+                        }
+                        if (mysqli_affected_rows($mysqli) != 1) {
+                            echo "<div>Query Failure. Please try to upload your image again.</div>";
+                        }
+                    } 
+                    else {
+                        echo "<div>Query Failure. Please try to upload your image again.</div>";
+                    }
+                } 
+                else {
+                    echo "<div>Failed to grab your User Id. Try logging in again.</div>";
+                }
+            } 
+            else {
+                echo "<div>Sorry, there was an error uploading your file.</div>";
+            }
+        }
         } 
         else {
             echo "Sorry, there was an error uploading your file.";
         }
-    }
 }
 
 function edit_overwrite()
 {
     //and also a function to overwrite a file with the same name after
     //an edit
-    $target_dir = "../images/";
-    $target_dir = $target_dir . basename( $_FILES["imagefile"]["name"]);
-    $uploadOk=1;
-
-    // Check if file already exists
-    /*  NOT SURE IF YOU CAN JUST CALL $_FILES["name"] TO CHECK IF IT HAS THE SAME NAME... */
-    if (file_exists('../images/' . $_FILES["name"]) unlink ('../images/' . $_FILES["name"]));
-
-    // Check file size
-    if ($imagefile_size > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } 
-    else {
-        if (move_uploaded_file($_FILES["imagefile"]["tmp_name"], $target_dir)) {
-        
-            $imgData = file_get_contents($filename);
-            $size = getimagesize($filename);
-            mysql_connect("localhost", "$username", "$password");
-            mysql_select_db ("images");
-            $sql = sprintf("INSERT INTO images
-            (image_type, image, image_size, image_name)
-            VALUES
-            ('%s', '%s', '%d', '%s')",
-            mysql_real_escape_string($size['mime']),
-            mysql_real_escape_string($imgData),
-            $size[3],
-            mysql_real_escape_string($_FILES['imagefile']['name'])
-            );
-            mysql_query($sql);
-        
-            echo "The file ". basename( $_FILES["imagefile"]["name"]). " has been uploaded.";
+    if(isset($_FILES["imagefile"])&&isset($_SESSION['LOGIN_STATUS'])&&$_SESSION['LOGIN_STATUS']) {
+        $target_dir = "../images/";
+        $target_dir = $target_dir . basename( $_FILES["imagefile"]["name"]);
+        $uploadOk=1;
+    
+        // Check if file already exists
+        /*  NOT SURE IF YOU CAN JUST CALL $_FILES["name"] TO CHECK IF IT HAS THE SAME NAME... */
+        if (file_exists('../images/' . $_FILES["name"]) unlink ('../images/' . $_FILES["name"]));
+    
+        // Check file size
+        if ($imagefile_size > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+    
+        //Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "<div>Your file was not uploaded. Please try again.<a href='../index.php'>Return</a></div>";
+            //if everything is ok, try to upload file
         } 
         else {
-            echo "Sorry, there was an error uploading your file.";
+            if (move_uploaded_file($_FILES["imagefile"]["tmp_name"], $target_dir)) {
+                echo "<div>The file ". basename( $_FILES["imagefile"]["name"]). " has been uploaded. <a class='btn btn-primary'href='../index.php'>Return</a></div>";
+                if(isset($_SESSION['uid'])) {
+                    $username = $_SESSION['uid'];
+                    if($uploadOk !=0) {
+                        if($query_insert_image = $mysqli->prepare("INSERT INTO images (user_id, image_path) VALUES (?, ?)")) {
+                            $query_insert_image->bind_param("ss", $username, $target_dir);
+                            $query_insert_image->execute();
+                        }
+                        if (mysqli_affected_rows($mysqli) != 1) {
+                            echo "<div>Query Failure. Please try to upload your image again.</div>";
+                        }
+                    } 
+                    else {
+                        echo "<div>Query Failure. Please try to upload your image again.</div>";
+                    }
+                } 
+                else {
+                    echo "<div>Failed to grab your User Id. Try logging in again.</div>";
+                }
+            }
         }
+    }
+    else {
+        echo "<div>Sorry, there was an error uploading your file.</div>";
     }
 }
 ?>
