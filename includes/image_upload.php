@@ -10,6 +10,7 @@ include('config.php');
 $target_dir = "../images/";
 $target_dir = $target_dir . basename( $_FILES["imagefile"]["name"]);
 $uploadOk=1;
+var_dump($_FILES['imagefile']);
 
 // Check if file already exists
 if (file_exists('../images/' . $_FILES["imagefile"]["name"])) {
@@ -17,6 +18,8 @@ if (file_exists('../images/' . $_FILES["imagefile"]["name"])) {
     $uploadOk = 0;
 }
 
+$imagefile_size = $_FILES['imagefile']['size'];
+echo $imagefile_size;
 // Check file size
 if ($imagefile_size > 500000) {
     echo "Sorry, your file is too large.";

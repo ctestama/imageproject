@@ -55,7 +55,7 @@
 								<input type="file" name="imagefile" size="40">
 						</p>
 						<div>
-								<input id="image_submit" type="submit" value="Send">
+								<input id="image_submit" type="submit" value="Upload">
 						</div>
 					</form>';
 			} else {
