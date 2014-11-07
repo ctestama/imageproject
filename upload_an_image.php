@@ -36,7 +36,7 @@
     <div id="image_upload" class="container-fluid">
     <div class="row">
     	<div class="col-md-12" id="login_head">
-		Capture
+		The Emerald
 		<?php 
 
 			if($logged_in) {
