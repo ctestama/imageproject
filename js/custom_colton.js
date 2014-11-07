@@ -1,4 +1,13 @@
 //custom javascript and jquery will go here
+$( document ).ready(function() {
+   $('#img_slide').slider()
+    .on('slide', function(ev){
+     $('#slide_view').val(ev.value);
+  });
+});
+
+
+
 
 function image_grab(img) {
       var canvas = document.getElementById('image_pop');
@@ -13,10 +22,6 @@ function image_grab(img) {
       };
 
     image.src = img;
-    
-    
-
-
 
 }
 
