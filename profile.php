@@ -14,7 +14,7 @@ if(isset($_SESSION['LOGIN_STATUS'] )&& $_SESSION['LOGIN_STATUS']) {
 
 <div class="row">
 	<div class="col-md-12" id="header">
-		Capture
+		The Emerald
 		<?php 
 
 			if($logged_in) {
@@ -22,7 +22,18 @@ if(isset($_SESSION['LOGIN_STATUS'] )&& $_SESSION['LOGIN_STATUS']) {
 			}	
 		?>
 	</div>
-	
+</div>	
+<div class="container">
+	<div class="col-md-12" id="edit_container">
+		<div class="slide_container">
+			<input type="text" id="img_slide" class="span2" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" 
+			data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
+			<input type="text" id="slide_view">
+		</div>
+		<canvas id="image_pop">
+		</canvas>
+	</div>
+
 	<div class="col-md-6">
 	<?php 	
 		if($logged_in) {
@@ -30,23 +41,43 @@ if(isset($_SESSION['LOGIN_STATUS'] )&& $_SESSION['LOGIN_STATUS']) {
 			
 			echo '</div>';
 			echo '<div class="col-md-6">';
-				echo '<div class = "jumbotron" id="greeting">' . $greeting . '</div>';			
+				echo '<div class ="panel panel-success">';
+					echo '<div class="panel-heading" id="greeting">' . $greeting . '</div>';
+						echo '<div class="panel-body" id="profile">';
+							echo '<div id="profile_image_div">';
+
+							if (isset($_SESSION['profile_image'])) {
+								$profile_src = substr($_SESSION['profile_image'], 3);
+								echo '<img id="profile_img" src="'.$profile_src.'" />';
+							} 
+
+							echo '</div>';
+							echo '<form action="includes/profile_image_upload.php" enctype="multipart/form-data" method="post">
+										<p>
+												 <label>Upload or change your profile image: </label>
+												<input class="btn btn-primary" type="file" name="profileimage" size="40">
+										</p>
+										<div>
+												<input class="btn btn-success" id="image_submit" type="submit" value="Upload">
+										</div>
+									</form>
+								</div>';	
+					echo '</div>';		
 			echo '</div>';
  		} else {
  			echo '<p>You are not logged in.</p>';
  		}
 	?>
-	
-</div>
 
-<div class="row" id="user_images">
+	<div class="col-md-12" id="user_images">
 
 
-<?php 
-	if(isset($uid)) {
-		include("includes/image_getter.php"); 
-	}
-?>
+		<?php 
+			if(isset($uid)) {
+				include("includes/image_getter.php"); 
+			}
+		?>
 
 
+	</div>
 </div>

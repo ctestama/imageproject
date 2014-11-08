@@ -7,6 +7,8 @@
 	font-style: bold;
 	padding-bottom: 20px;
 	padding-top: 20px;
+	color: whitesmoke;
+	padding-left: 10%;
 }
 
 #header span {
@@ -36,6 +38,7 @@
 	padding-bottom: 10px;
 	padding-top: 10px;
 	padding-left: 40px;
+	color: whitesmoke;
 }
 
 .error {
@@ -57,4 +60,13 @@
 
 #logout {
 	float: right;
+}
+
+#edit_container {
+	display: none;
+}
+
+#profile_img {
+	max-width: 200px;
+	height: auto;
 }

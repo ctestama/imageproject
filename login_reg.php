@@ -5,7 +5,7 @@
 
 <div id="login_reg" class="row">
 	<div class="col-md-12" id="login_head">
-	Capture
+	The Emerald
 	</div>
     <div class="col-md-6">
     	<form  class="registration_form">

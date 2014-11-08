@@ -111,6 +111,25 @@ function login($mysqli, $email, $password) {
 
     	$_SESSION['uid'] = $user_id;
     	$_SESSION['fname'] = $fname;
+
+        //Check if user has profile image
+        if($prof=$mysqli->prepare("SELECT * FROM profile_images WHERE user_id=?")) {
+            $prof->bind_param("s", $user_id);
+            $prof->execute();
+            $prof->store_result();
+            $checkimgs=$prof->num_rows();
+            $prof->bind_result($image_id, $user_id, $image_path, $date);                        
+           
+        } else {
+            $checkimgs = 0;
+        }
+
+        //if user profile image exists, load it into session variable
+        if ($checkimgs >=1) { 
+            $row = $prof->fetch();
+            $_SESSION['profile_image'] = $image_path;
+        }
+
     	$output = "Success";
     } else {
     	$output= "Authentication Failed";

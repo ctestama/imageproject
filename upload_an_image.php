@@ -36,7 +36,7 @@
     <div id="image_upload" class="container-fluid">
     <div class="row">
     	<div class="col-md-12" id="login_head">
-		Capture
+		The Emerald
 		<?php 
 
 			if($logged_in) {
@@ -55,7 +55,7 @@
 								<input type="file" name="imagefile" size="40">
 						</p>
 						<div>
-								<input id="image_submit" type="submit" value="Send">
+								<input id="image_submit" type="submit" value="Upload">
 						</div>
 					</form>';
 			} else {
