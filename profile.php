@@ -28,7 +28,8 @@ if(isset($_SESSION['LOGIN_STATUS'] )&& $_SESSION['LOGIN_STATUS']) {
 		<div class="slide_container">
 			<input style="width: 250px" type="text" id="img_slide" class="span2" value="" data-slider-min="-50" 
 			data-slider-max="50" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
-			<input type="text" id="slide_view">
+			<span id="slide_view" class="badge"></span>
+			
 			<a class="btn btn-primary" onclick="saveBright()">Save Edited Image</a>
 			</div>
 			
