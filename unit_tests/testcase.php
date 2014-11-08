@@ -1,10 +1,10 @@
 <?php
 
-require_once 'includes/image_getter.php';
-require_once 'includes/user_functions.php';;
+require_once '../includes/image_getter.php';
+require_once '../includes/user_functions.php';;
 //require_once 'PHPUnit.php';
 
-class unitTest extends HPUnit_Framework_TestCase
+class unitTest extends PHPUnit_Framework_TestCase
 {
 	//object handling?
 	
