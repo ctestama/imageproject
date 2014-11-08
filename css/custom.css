@@ -65,3 +65,8 @@
 #edit_container {
 	display: none;
 }
+
+#profile_img {
+	max-width: 200px;
+	height: auto;
+}

@@ -9,7 +9,7 @@ if(isset($_SESSION['LOGIN_STATUS'])&&$_SESSION['LOGIN_STATUS']&&isset($_SESSION[
 	imageGetter($mysqli, $user_id);
 	echo "</div>";
 } else {
-	echo "<div>Sorry! We had trouble retreiving your images.  Try logging in again.</div>";
+	echo "<div>Sorry! We had trouble retrieving your images.  Try logging in again.</div>";
 }
 
 
