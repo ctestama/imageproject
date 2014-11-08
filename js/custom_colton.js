@@ -52,11 +52,9 @@ function image_grab(img) {
       image.onload = function() {
         $(canvas).attr({height: this.height, width: this.width, src: img});
         context.drawImage(image, 0, 0);
-        console.log(this);
-        console.log(canvas);
       };
 
-    image.src = img + '#e'+ Math.random();
+    image.src = img + '?dummay='+ Math.random();
 
     $('#edit_container').slideDown();
 
