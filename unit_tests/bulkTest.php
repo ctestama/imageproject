@@ -1,39 +1,12 @@
 <?php
-
-require_once '../includes/image_getter.php';
-require_once '../includes/user_functions.php';;
-//require_once 'PHPUnit.php';
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once "$root/includes/image_getter.php";
+require_once "$root/includes/user_functions.php";
+require_once "$root/vendor/autoload.php";
 
 class unitTest extends PHPUnit_Framework_TestCase
 {
-	//object handling?
 	
-	//(code here) //needs finished
-	
-	//constructor of the test suite
-	function unitTest($name) 
-	{
-		$this->PHPUnit_TestCase($name);
-	}
-	
-	// called before the test functions will be executed
-    // this function is defined in PHPUnit_TestCase and overwritten
-    // here
-	function setUp() 
-	{
-		//creates a new instance of variables to be used in the test functions
-		
-		
-	}
-	
-	// called after the test functions are executed
-    // this function is defined in PHPUnit_TestCase and overwritten
-    // here
-	function tearDown()
-	{
-		//delete the instance variables
-		
-	}
 	
 	//---Tests here---
 	
@@ -55,11 +28,11 @@ class unitTest extends PHPUnit_Framework_TestCase
 	//tests the encrypt($pure_string, $encryption_key) function
 	function testEncrypt()
 	{
-		$string = new String('123');
+		$string = '123';
 		$encryption_key = "_@#$)^@*&";
 		
 		$result = encrypt($string, $encryption_key);
-		$expected = new String('whatever 123 encrypted is');	//I dont know what 123 would be encrypted so I don't know what to put here!
+		$expected = 'whatever 123 encrypted is';	//I dont know what 123 would be encrypted so I don't know what to put here!
 		$this->assertTrue($result == $expected);
 		
 	}
@@ -67,11 +40,11 @@ class unitTest extends PHPUnit_Framework_TestCase
 	//tests the decrypt($encrypted_string, $encryption_key) function
 	function testDecrypt()
 	{
-		$encrypted_string = new String('whatever 123 encrypted is');   //string value needs fixed!
+		$encrypted_string = 'whatever 123 encrypted is';   //string value needs fixed!
 		$encryption_key = "_@#$)^@*&";
 		
 		$result = decrypt($encrypted_string, $encryption_key);
-		$expected = new String('123');
+		$expected = '123';
 		$this->assertTrue($result == $expected);
 	}
 	
@@ -96,19 +69,19 @@ class unitTest extends PHPUnit_Framework_TestCase
 		$mysqli = new mysqli($host, $username, $password, $database);
 		
 		//test 1 - failed login
-		$email = new String('thisIsWrong@cox.net');
-		$password = new String('thisIsAlsoWrong');
+		$email = 'thisIsWrong@cox.net';
+		$password ='thisIsAlsoWrong';
 		
 		$result = login($mysqli, $email, $password);
-		$expected = new String('Authentication Failed');
+		$expected = 'Authentication Failed';
 		$this->assertTrue($result == $expected);
 		
 		//test 2 - successful login; will need your help to finish
-		$email = new String('YOUR CORRECT EMAIL HERE');  //add your correct email in place of the string
-		$password = new String('YOUR CORRECT PASSWORD HERE');  //add your correct password in place of the string
+		$email = 'YOUR CORRECT EMAIL HERE';  //add your correct email in place of the string
+		$password = 'YOUR CORRECT PASSWORD HERE';  //add your correct password in place of the string
 		
 		$result = login($mysqli, $email, $password);
-		$expected = new String('Success');
+		$expected = 'Success';
 		$this->assertTrue($result == $expected);
 		
 	}
@@ -117,7 +90,7 @@ class unitTest extends PHPUnit_Framework_TestCase
 	function testLogout()
 	{
 		$results = logout();
-		$expected = new String('Success');
+		$expected = 'Success';
 		$this->assertTrue($result == $expected);
 		
 	}
