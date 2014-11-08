@@ -22,7 +22,7 @@ $( document ).ready(function() {
           this.brightness(ev.value).render();
         });
 
-        $('#slide_view').val(ev.value);
+        $('#slide_view').html(ev.value);
   });
 });
 
@@ -45,6 +45,7 @@ function saveBright() {
 }
 
 function image_grab(img) {
+    
       var canvas = document.getElementById('image_pop');
       var context = canvas.getContext('2d');
       var image = new Image();
@@ -55,7 +56,7 @@ function image_grab(img) {
       };
 
     image.src = img + '?dummay='+ Math.random();
-
+    $('#image_slide').attr({value: 0});
     $('#edit_container').slideDown();
 
 }
