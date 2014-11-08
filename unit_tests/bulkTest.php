@@ -4,6 +4,7 @@ require_once "$root/includes/image_getter.php";
 require_once "$root/includes/user_functions.php";
 require_once "$root/vendor/autoload.php";
 
+
 class unitTest extends PHPUnit_Framework_TestCase
 {
 	
@@ -15,14 +16,6 @@ class unitTest extends PHPUnit_Framework_TestCase
 	{
 		//This is the function that simply echos back the images.  Again I don't know what to compare
 		//or assert here so IDK what to do.
-	}
-	
-	//tests the errorCheck($error) function
-		//think you said we dont need this one but I added a skeleton for it anyways
-		//remove if we dont need.
-	function testErrorChecker()
-	{
-		
 	}
 	
 	//tests the encrypt($pure_string, $encryption_key) function
