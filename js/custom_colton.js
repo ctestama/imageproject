@@ -1,13 +1,48 @@
 //custom javascript and jquery will go here
 $( document ).ready(function() {
+
+    
    $('#img_slide').slider()
-    .on('slide', function(ev){
-     $('#slide_view').val(ev.value);
+    .on('slideStop', function(ev){
+        var source = $('#image_pop').attr('src');
+        $('#image_pop').removeAttr('data-caman-id');
+        console.log(source);
+        var canvas = document.getElementById('image_pop');
+        var context = canvas.getContext('2d');
+        var image = new Image();
+
+        image.onload = function() {
+            $(canvas).attr({height: this.height, width: this.width, src: source});
+            context.drawImage(image, 0, 0);
+        };
+
+        image.src = source;
+
+        Caman("#image_pop", function () {
+          this.brightness(ev.value).render();
+        });
+
+        $('#slide_view').val(ev.value);
   });
 });
 
+function saveBright() {
+    var canvas = document.getElementById('image_pop');
+    var data = canvas.toDataURL();
+    var source = $('#image_pop').attr('src');
 
-
+    $.ajax({
+      type: "POST",
+      url: "includes/image_edit.php",
+      data: { 
+         imgBase64: data,
+         src: source
+      }
+    }).done(function(o) {
+        location.reload(true);
+    });
+    
+}
 
 function image_grab(img) {
       var canvas = document.getElementById('image_pop');
@@ -15,13 +50,11 @@ function image_grab(img) {
       var image = new Image();
 
       image.onload = function() {
-        $(canvas).attr({height: this.height, width: this.width});
+        $(canvas).attr({height: this.height, width: this.width, src: img});
         context.drawImage(image, 0, 0);
-        console.log(this);
-        console.log(canvas);
       };
 
-    image.src = img;
+    image.src = img + '?dummay='+ Math.random();
 
     $('#edit_container').slideDown();
 

@@ -26,13 +26,17 @@ if(isset($_SESSION['LOGIN_STATUS'] )&& $_SESSION['LOGIN_STATUS']) {
 <div class="container">
 	<div class="col-md-12" id="edit_container">
 		<div class="slide_container">
-			<input type="text" id="img_slide" class="span2" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" 
-			data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
+			<input style="width: 250px" type="text" id="img_slide" class="span2" value="" data-slider-min="-50" 
+			data-slider-max="50" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
 			<input type="text" id="slide_view">
+			<a class="btn btn-primary" onclick="saveBright()">Save Edited Image</a>
+			</div>
+			
+				<div id="can_wrap">
+					<canvas id="image_pop">
+					</canvas>
+				</div>
 		</div>
-		<canvas id="image_pop">
-		</canvas>
-	</div>
 
 	<div class="col-md-6">
 	<?php 	
