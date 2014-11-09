@@ -1,6 +1,6 @@
 <?php
 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once "$root/includes/image_getter.php";
+
 require_once "$root/includes/user_functions.php";
 require_once "$root/vendor/autoload.php";
 
@@ -8,8 +8,6 @@ require_once "$root/vendor/autoload.php";
 class unitTest extends PHPUnit_Framework_TestCase
 {
 	
-	
-	//---Tests here---
 	
 	//tests the imageGetter() function
 	function testImageGetter()
@@ -19,28 +17,22 @@ class unitTest extends PHPUnit_Framework_TestCase
 	}
 	
 	//tests the encrypt($pure_string, $encryption_key) function
-	function testEncrypt()
+	function testEncryptDecrypt()
 	{
 		$string = '123';
 		$encryption_key = "_@#$)^@*&";
 		
 		$result = encrypt($string, $encryption_key);
-		$expected = 'whatever 123 encrypted is';	//I dont know what 123 would be encrypted so I don't know what to put here!
-		$this->assertTrue($result == $expected);
+		$notexpected = '123';	//we don't want the same string coming back
+		$this->assertTrue($result != $notexpected);
+
+		$result2 = decrypt($result, $encryption_key);
+		$expected = $string;
+		$this->assertTrue($expected == $result2);
 		
 	}
 	
-	//tests the decrypt($encrypted_string, $encryption_key) function
-	function testDecrypt()
-	{
-		$encrypted_string = 'whatever 123 encrypted is';   //string value needs fixed!
-		$encryption_key = "_@#$)^@*&";
-		
-		$result = decrypt($encrypted_string, $encryption_key);
-		$expected = '123';
-		$this->assertTrue($result == $expected);
-	}
-	
+
 	//tests the register($mysqli, $fname, $lname, $email, $password) function
 	function testRegister()
 	{
@@ -52,14 +44,7 @@ class unitTest extends PHPUnit_Framework_TestCase
 		//so this should return false as it will not be your email/pword.
 		//The second part is for the correct login email/pword.  I'll need you to fill that in
 	function testLogin()
-	{
-		$host = "localhost";
-		//$host = "yourserver.net";
-		$username = "root"; //username for database here
-		$password = "colt"; //password for database here
-		$database =  "capture"; //name of your database here
-		
-		$mysqli = new mysqli($host, $username, $password, $database);
+	{	
 		
 		//test 1 - failed login
 		$email = 'thisIsWrong@cox.net';
@@ -82,7 +67,7 @@ class unitTest extends PHPUnit_Framework_TestCase
 	//tests the logout() function
 	function testLogout()
 	{
-		$results = logout();
+		$result = logout();
 		$expected = 'Success';
 		$this->assertTrue($result == $expected);
 		

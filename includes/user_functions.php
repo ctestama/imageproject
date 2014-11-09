@@ -140,7 +140,7 @@ function login($mysqli, $email, $password) {
 }		
 
 function logout() {
-	session_start();
+
   	session_destroy();
   	return "Success";
 }
