@@ -45,7 +45,12 @@ class unitTest extends PHPUnit_Framework_TestCase
 		//The second part is for the correct login email/pword.  I'll need you to fill that in
 	function testLogin()
 	{	
-		
+		$host = "localhost";
+		//$host = "yourserver.net";
+		$username = "root"; //username for database here
+		$password = "colt"; //password for database here
+		$database =  "capture"; //name of your database here
+		$mysqli= new mysqli($host, $username, $password, $database); 
 		//test 1 - failed login
 		$email = 'thisIsWrong@cox.net';
 		$password ='thisIsAlsoWrong';
