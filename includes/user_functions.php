@@ -89,6 +89,11 @@ function register($mysqli, $fname, $lname, $email, $password) {
 }
 
 function login($mysqli, $email, $password) {
+    $user_id=NULL;
+    $fname=NULL;
+    $lname=NULL;
+    $pword=NULL;
+
 	$output = '';
 	$pass_encrypted = encrypt($password, ENCRYPTION_KEY);
 

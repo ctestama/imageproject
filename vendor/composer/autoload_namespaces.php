@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
+    'Mockery' => array($vendorDir . '/mockery/mockery/library'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src'),
 );

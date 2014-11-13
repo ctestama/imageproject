@@ -1,8 +1,8 @@
 <?php
 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-
 require_once "$root/includes/user_functions.php";
 require_once "$root/vendor/autoload.php";
+require_once "$root/includes/config.php";
 
 
 class unitTest extends PHPUnit_Framework_TestCase
@@ -41,17 +41,56 @@ class unitTest extends PHPUnit_Framework_TestCase
 	//tests the login($mysqli, $email, $password) function
 	function testLogin()
 	{	
-		$host = "localhost";
-		//$host = "yourserver.net";
-		$username = "root"; //username for database here
-		$password = "colt"; //password for database here
-		$database =  "capture"; //name of your database here
-		$mysqli= new mysqli($host, $username, $password, $database); 
+
+		$result = encrypt('encryptedpass', ENCRYPTION_KEY);
+		$mockedDbConnection = \Mockery::mock('mysqli');
+		$mockedStatement = \Mockery::mock('mysqli_stmt');
+
+        $mockedDbConnection
+            ->shouldReceive('prepare')
+            ->with('SELECT * FROM users WHERE email=? AND password=?')
+            ->andReturn($mockedStatement);
+
+        $mockedStatement
+            ->shouldReceive('bind_param')
+            ->with("ss", 'dummymail@asu.edu', $result)
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('execute')
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('store_result')
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('num_rows')
+            ->andReturn(1);
+
+        $mockedStatement
+        	->shouldReceive('bind_result')
+        	->with($user_id=NULL, $fname=NULL, $lname=NULL, 
+        	$email='dummymail@asu.edu', $pword=NULL)
+        	->andReturn(TRUE);
+
+        $mockedRows = array(
+            array('headline' => 'First headline')
+        );
+
+        /*$mockedStatement
+            ->shouldReceive('fetch')
+            ->andReturnUsing(function () use (&$mockedRows) {
+                $row = current($mockedRows);
+                next($mockedRows);
+                return $row;
+            });*/
+
 		//test 1 - failed login
-		$email = 'thisIsWrong@cox.net';
-		$password ='thisIsAlsoWrong';
+		$email = 'dummymail@asu.edu';
+		$password ='encryptedpass';
 		
-		$result = login($mysqli, $email, $password);
+		$result = login($mockedDbConnection, $email, $password);
 		$expected = 'Authentication Failed';
 		$this->assertTrue($result == $expected);
 		
