@@ -19,10 +19,10 @@ class unitTest extends PHPUnit_Framework_TestCase
 	//tests the encrypt($pure_string, $encryption_key) function
 	function testEncryptDecrypt()
 	{
-		$string = '123';
+		$string = "testpass";
 		
 		$result = encrypt($string, ENCRYPTION_KEY);
-		$notexpected = '123';	//we don't want the same string coming back
+		$notexpected = "testpass";	//we don't want the same string coming back
 		$this->assertTrue($result != $notexpected);
 
 		$result2 = decrypt($result, ENCRYPTION_KEY);
@@ -34,14 +34,52 @@ class unitTest extends PHPUnit_Framework_TestCase
 
 	//tests the register($mysqli, $fname, $lname, $email, $password) function
 	function testRegister()
-	{
-		
+	{	
+
+		//test 1 - failed register (email alread exists)
+		$email = 'dummymail@asu.edu';
+		$password ='encryptedpass';
+
+		$mockedDbConnection = \Mockery::mock('mysqli');
+		$mockedStatement = \Mockery::mock('mysqli_stmt');
+
+        $mockedDbConnection
+            ->shouldReceive('prepare')
+            ->with("SELECT email FROM users WHERE email = ?")
+            ->andReturn($mockedStatement);
+
+        $mockedStatement
+            ->shouldReceive('bind_param')
+            ->with("s", 'dummymail@asu.edu')
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('execute')
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('store_result')
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('num_rows')
+            ->andReturn(1);
+
+        $result = register($mockedDbConnection, 'Colton', 
+        	'Testamarck', $email, $password);
+        $expected = "The email already exists.";
+        $this->assertTrue($result == $expected);
+
 	}
 	
 	//tests the login($mysqli, $email, $password) function
 	function testLogin()
 	{	
 		
+		//test 1 - successful login
+		$email = 'dummymail@asu.edu';
+		$password ='encryptedpass';
+
 		$result = encrypt('encryptedpass', ENCRYPTION_KEY);
 		$mockedDbConnection = \Mockery::mock('mysqli');
 		$mockedStatement = \Mockery::mock('mysqli_stmt');
@@ -119,9 +157,7 @@ class unitTest extends PHPUnit_Framework_TestCase
             ->shouldReceive('close')
             ->andReturn(TRUE);
 
-		//test 1 - successful login
-		$email = 'dummymail@asu.edu';
-		$password ='encryptedpass';
+		
 		
 		$result = login($mockedDbConnection, $email, $password);
 		$expected = 'Success';
