@@ -93,6 +93,9 @@ function login($mysqli, $email, $password) {
     $fname=NULL;
     $lname=NULL;
     $pword=NULL;
+    $image_id = NULL;
+    $image_path = NULL;
+    $date = NULL;
 
 	$output = '';
 	$pass_encrypted = encrypt($password, ENCRYPTION_KEY);
@@ -140,7 +143,7 @@ function login($mysqli, $email, $password) {
     	$output= "Authentication Failed";
     }
 
-    mysqli_close($mysqli);
+    $mysqli->close();
     return $output;	   
 }		
 

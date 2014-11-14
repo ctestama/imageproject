@@ -1,8 +1,9 @@
 <?php
+define("ENCRYPTION_KEY", "_@#$)^@*&");
 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once "$root/includes/user_functions.php";
 require_once "$root/vendor/autoload.php";
-require_once "$root/includes/config.php";
+
 
 
 class unitTest extends PHPUnit_Framework_TestCase
@@ -19,13 +20,12 @@ class unitTest extends PHPUnit_Framework_TestCase
 	function testEncryptDecrypt()
 	{
 		$string = '123';
-		$encryption_key = "_@#$)^@*&";
 		
-		$result = encrypt($string, $encryption_key);
+		$result = encrypt($string, ENCRYPTION_KEY);
 		$notexpected = '123';	//we don't want the same string coming back
 		$this->assertTrue($result != $notexpected);
 
-		$result2 = decrypt($result, $encryption_key);
+		$result2 = decrypt($result, ENCRYPTION_KEY);
 		$expected = $string;
 		$this->assertTrue($expected == $result2);
 		
@@ -41,7 +41,7 @@ class unitTest extends PHPUnit_Framework_TestCase
 	//tests the login($mysqli, $email, $password) function
 	function testLogin()
 	{	
-
+		
 		$result = encrypt('encryptedpass', ENCRYPTION_KEY);
 		$mockedDbConnection = \Mockery::mock('mysqli');
 		$mockedStatement = \Mockery::mock('mysqli_stmt');
@@ -78,27 +78,132 @@ class unitTest extends PHPUnit_Framework_TestCase
             array('headline' => 'First headline')
         );
 
-        /*$mockedStatement
-            ->shouldReceive('fetch')
-            ->andReturnUsing(function () use (&$mockedRows) {
-                $row = current($mockedRows);
-                next($mockedRows);
-                return $row;
-            });*/
+        $mockedStatement
+        	->shouldReceive('fetch')
+        	->andReturn(TRUE);
 
-		//test 1 - failed login
+        $mockedStatement2 = \Mockery::mock('mysqli_stmt');
+
+       	$mockedDbConnection
+            ->shouldReceive('prepare')
+            ->with('SELECT * FROM profile_images WHERE user_id=?')
+            ->andReturn($mockedStatement2);
+
+        $mockedStatement2
+            ->shouldReceive('bind_param')
+            ->with("s", NULL)
+            ->andReturn(TRUE);
+
+        $mockedStatement2
+            ->shouldReceive('execute')
+            ->andReturn(TRUE);
+
+        $mockedStatement2
+            ->shouldReceive('store_result')
+            ->andReturn(TRUE);
+
+        $mockedStatement2
+            ->shouldReceive('num_rows')
+            ->andReturn(1);
+
+        $mockedStatement2
+        	->shouldReceive('bind_result')
+        	->with(NULL, NULL, NULL, NULL)
+        	->andReturn(TRUE);
+
+       	$mockedStatement2
+        	->shouldReceive('fetch')
+        	->andReturn(TRUE);
+
+        $mockedDbConnection
+            ->shouldReceive('close')
+            ->andReturn(TRUE);
+
+		//test 1 - successful login
 		$email = 'dummymail@asu.edu';
 		$password ='encryptedpass';
 		
 		$result = login($mockedDbConnection, $email, $password);
-		$expected = 'Authentication Failed';
+		$expected = 'Success';
 		$this->assertTrue($result == $expected);
+
+		//TEST 2-- FAILED LOGIN
+
+		$mockedDbConnection
+            ->shouldReceive('prepare')
+            ->with('SELECT * FROM users WHERE email=? AND password=?')
+            ->andReturn($mockedStatement);
+
+        $mockedStatement
+            ->shouldReceive('bind_param')
+            ->with("ss", 'dummymail@asu.edu', $result)
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('execute')
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('store_result')
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('num_rows')
+            ->andReturn(1);
+
+        $mockedStatement
+        	->shouldReceive('bind_result')
+        	->with($user_id=NULL, $fname=NULL, $lname=NULL, 
+        	$email='dummymail@asu.edu', $pword=NULL)
+        	->andReturn(TRUE);
+
+        $mockedRows = array(
+            array('headline' => 'First headline')
+        );
+
+        $mockedStatement
+        	->shouldReceive('fetch')
+        	->andReturn(TRUE);
+
+        $mockedStatement2 = \Mockery::mock('mysqli_stmt');
+
+       	$mockedDbConnection
+            ->shouldReceive('prepare')
+            ->with('SELECT * FROM profile_images WHERE user_id=?')
+            ->andReturn($mockedStatement2);
+
+        $mockedStatement2
+            ->shouldReceive('bind_param')
+            ->with("s", NULL)
+            ->andReturn(TRUE);
+
+        $mockedStatement2
+            ->shouldReceive('execute')
+            ->andReturn(TRUE);
+
+        $mockedStatement2
+            ->shouldReceive('store_result')
+            ->andReturn(TRUE);
+
+        $mockedStatement2
+            ->shouldReceive('num_rows')
+            ->andReturn(0);
+
+        $mockedStatement2
+        	->shouldReceive('bind_result')
+        	->with(NULL, NULL, NULL, NULL)
+        	->andReturn(TRUE);
+
+       	$mockedStatement2
+        	->shouldReceive('fetch')
+        	->andReturn(TRUE);
+
+        $mockedDbConnection
+            ->shouldReceive('close')
+            ->andReturn(TRUE);
+
 		
-		//test 2 - successful login; will need your help to finish
-		$email = 'colt@asu.edu';  //add your correct email in place of the string
-		$password = 'root';  //add your correct password in place of the string
-		
-		$result = login($mysqli, $email, $password);
+		$result = login($mockedDbConnection, $email, $password);
 		$expected = 'Success';
 		$this->assertTrue($result == $expected);
 		
