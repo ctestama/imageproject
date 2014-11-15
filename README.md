@@ -33,7 +33,7 @@ This will automatically pull in the dependencies which are needed to run the uni
 
 For Windows:
 
-1.)  We haven't yet tested this with the windows CMD line, but it runs well when using the 'Git Shell', or Powershell for windows.  Powershell is included with the Github Windows download, and is named 'Git Shell' when downloaded from them.
+1.)  We haven't yet tested this with the windows CMD line, but it runs well when using the 'Git Shell', or Powershell for windows.  
 
 2.) In order to run the tests, navigate your shell to the root of our repository
 
