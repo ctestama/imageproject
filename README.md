@@ -27,7 +27,7 @@ Unit Testing
 
 Our unit testing is built on PHP Unit and the Mockery library, which are listed as required dependencies via our composer.json file.
 
-First, you'll need to have Composer package manager installed or you'll need to install it.  Then, from the Windows Powershell, or via the terminal with Mac or LInux, you can simply run the command: composer install
+First, you'll need to have Composer package manager installed or you'll need to install it.  Then, from the Windows Powershell, or via the terminal with Mac or LInux, you can simply run the following command from our root directory: composer install
 
 This will automatically pull in the dependencies which are needed to run the unit tests.  To actually run the tests, follow the instructions below.
 
