@@ -2,6 +2,12 @@
 <?php
 
 function imageGetter($mysqli, $uid) {
+    $image_id=NULL;
+    $image_name=NULL;
+    $image_uri=NULL;
+    $user_id=NULL;
+    $image_path="../images/some_test";
+    $date=NULL;
 		
 		//***MAY NEED FIXING***execute the SQL query and return records,in this case the image data.
 	if($res=$mysqli->prepare("SELECT * FROM images WHERE user_id=?")) {

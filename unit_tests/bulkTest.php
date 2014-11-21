@@ -12,8 +12,45 @@ class unitTest extends PHPUnit_Framework_TestCase
 	
 	//tests the imageGetter() function
 	function testImageGetter()
-	{
-		
+	{	
+		//case 1, successful image get
+		$uid ='testid';
+
+		$mockedDbConnection = \Mockery::mock('mysqli');
+		$mockedStatement = \Mockery::mock('mysqli_stmt');
+
+        $mockedDbConnection
+            ->shouldReceive('prepare')
+            ->with('SELECT * FROM images WHERE user_id=?')
+            ->andReturn($mockedStatement);
+
+        $mockedStatement
+            ->shouldReceive('bind_param')
+            ->with("s", $uid)
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('execute')
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('store_result')
+            ->andReturn(TRUE);
+
+        $mockedStatement
+            ->shouldReceive('num_rows')
+            ->andReturn(1);
+
+        $mockedStatement
+        	->shouldReceive('bind_result')
+        	->with(NULL, NULL, '../images/some_test', NULL)
+        	->andReturn(TRUE);
+
+       	$mockedStatement
+        	->shouldReceive('fetch')
+        	->andReturn(TRUE);
+		$this->expectOutputString("<div><a class='btn btn-warning' onClick=image_grab('images/some_test');>some_test</a></div>");
+		imageGetter($mockedDbConnection, $uid);
 	}
 	
 	//tests the encrypt($pure_string, $encryption_key) function
