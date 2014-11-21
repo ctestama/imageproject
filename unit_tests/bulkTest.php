@@ -2,6 +2,7 @@
 define("ENCRYPTION_KEY", "_@#$)^@*&");
 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once "$root/includes/user_functions.php";
+require_once "$root/includes/image_functions.php";
 require_once "$root/vendor/autoload.php";
 
 
