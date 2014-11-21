@@ -1,6 +1,6 @@
 
 <?php
-
+//function to return the images
 function imageGetter($mysqli, $uid) {
     $image_id=NULL;
     $image_name=NULL;
@@ -9,7 +9,6 @@ function imageGetter($mysqli, $uid) {
     $image_path="../images/some_test";
     $date=NULL;
 		
-		//***MAY NEED FIXING***execute the SQL query and return records,in this case the image data.
 	if($res=$mysqli->prepare("SELECT * FROM images WHERE user_id=?")) {
 
         $res->bind_param("s", $uid);
