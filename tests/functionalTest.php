@@ -71,7 +71,13 @@ class functionalTests extends PHPUnit_Framework_TestCase {
         $this->webDriver->findElement(WebDriverBy::id('pword'))->sendKeys("password");
         //clicks the submit button
         $this->webDriver->findElement(WebDriverBy::id('sub'))->click();
-
+        /*
+        //Uploads a photo, ****MUST ENTER A LOCAL IMAGE PATH IN THE SECOND LINE OF THE FOUR****
+        $this->webDriver->findElement(WebDriverBy::id('image_button'))->click();
+        $this->webDriver->findElement(WebDriverBy::name('imagefile'))->sendKeys('(ENTER DIRECT IMAGE PATH)');
+        $this->webDriver->findElement(WebDriverBy::id('image_submit'))->click();
+        $this->webDriver->findElement(WebDriverBy::link('Return'))->click();
+        */
     }
 
 }
