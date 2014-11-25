@@ -26,6 +26,8 @@ class functionalTests extends PHPUnit_Framework_TestCase {
         // checking that page title contains word 'GitHub'
         $this->assertContains('Emerald', $this->webDriver->getTitle());
 
+
+        //enter email address
         $this->webDriver->findElement(WebDriverBy::id('login_email'))->clear();
         $this->webDriver->findElement(WebDriverBy::id('login_email'))->sendKeys("colt@asu.edu");
         $email_value = $this->webDriver->findElement(WebDriverBy::id('login_email'))->getAttribute('value');
@@ -49,11 +51,12 @@ class functionalTests extends PHPUnit_Framework_TestCase {
         $this->webDriver->findElement(WebDriverBy::id('my_img0'))->click();
         $profile_img = $this->webDriver->findElement(WebDriverBy::id('image_pop'))->getAttribute('src');
         $this->assertEquals("images/test1.jpg", $profile_img);
-        //checks to make sure the password was entered into the login password textbox
-        //$this->assertEquals(
-            //'matt1',
-            //$this->webDriver->findElement(WebDriverBy::id('login_password'))->getText()
-        //);
+
+        //check to make sure greeting is correct
+        $greeting = $this->webDriver->findElement(WebDriverBy::id('greeting'))->getText();
+        $this->assertEquals("Welcome Colton", $greeting);
+        
+        
     }   
 
 }
