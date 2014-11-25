@@ -59,5 +59,20 @@ class functionalTests extends PHPUnit_Framework_TestCase {
         
     }   
 
+    public function testRegistration()
+    {
+        $this->webDriver->get($this->url);
+        // checking that page title contains word 'GitHub'
+        $this->assertContains('Emerald', $this->webDriver->getTitle());
+        //fills in the fields for registration
+        $this->webDriver->findElement(WebDriverBy::id('fname'))->sendKeys("Jason");
+        $this->webDriver->findElement(WebDriverBy::id('lname'))->sendKeys("Perez");
+        $this->webDriver->findElement(WebDriverBy::id('email'))->sendKeys("jbperez2@asu.edu");
+        $this->webDriver->findElement(WebDriverBy::id('pword'))->sendKeys("password");
+        //clicks the submit button
+        $this->webDriver->findElement(WebDriverBy::id('sub'))->click();
+
+    }
+
 }
 ?>
