@@ -40,7 +40,15 @@ class functionalTests extends PHPUnit_Framework_TestCase {
         $this->webDriver->findElement(WebDriverBy::id('login_password'))->sendKeys("root");
 
         $this->webDriver->findElement(WebDriverBy::id('login_button'))->click();
-        
+
+        //check if profile image is correct
+        $profile_img = $this->webDriver->findElement(WebDriverBy::id('profile_img'))->getAttribute('src');
+        $this->assertEquals("http://localhost/imageproject/profile_images/test3.jpg", $profile_img);
+
+        //check if first user image is loading correctly
+        $this->webDriver->findElement(WebDriverBy::id('my_img0'))->click();
+        $profile_img = $this->webDriver->findElement(WebDriverBy::id('image_pop'))->getAttribute('src');
+        $this->assertEquals("images/test1.jpg", $profile_img);
         //checks to make sure the password was entered into the login password textbox
         //$this->assertEquals(
             //'matt1',

@@ -49,7 +49,7 @@ class unitTest extends PHPUnit_Framework_TestCase
        	$mockedStatement
         	->shouldReceive('fetch')
         	->andReturn(TRUE);
-		$this->expectOutputString("<div><a class='btn btn-warning' onClick=image_grab('images/some_test');>some_test</a></div>");
+		$this->expectOutputString("<div><a id='my_img0' class='btn btn-warning' onClick=image_grab('images/some_test');>some_test</a></div>");
 		imageGetter($mockedDbConnection, $uid);
 	}
 
