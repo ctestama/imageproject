@@ -61,7 +61,7 @@
 	            <input type="password" id="login_password" name="login_password" value="Password"  onClick="this.value='';" /><br />
 	        </div>
 	        <div class="submit">
-	            <input class ="sidebutton" type="button" value="Login" onclick="validLogin()"></input>
+	            <input id="login_button" class ="sidebutton" type="button" value="Login" onclick="validLogin()"></input>
 	    	</div>	
 
 	    	<div class="error" id="message2">
