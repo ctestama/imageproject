@@ -2,15 +2,18 @@
 $( document ).ready(function() {
 
     
-   $('#img_slide').slider()
+  $('#img_slide').slider()
     .on('slideStop', function(ev){
         var source = $('#image_pop').attr('src');
-
+        /*
         Caman("#image_pop", function () {
             this.brightness(ev.value).render();
         });
        
-        $('#slide_view').html(ev.value);
+        $('#slide_view').html(ev.value);*/
+        Caman("#image_pop", source, function () {
+            this.brightness(ev.value).render();
+        });
 
   });
 });
