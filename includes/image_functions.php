@@ -27,7 +27,7 @@ function imageGetter($mysqli, $uid) {
     		$row = $res->fetch();
     		$image_name = substr($image_path, 10);
     		$image_uri = substr($image_path, 3);
-    		echo "<div class='col-md-2'><a id='my_img".$i."' class='btn btn-warning' onClick=image_grab('".$image_uri."');>".$image_name."</a></div>";
+    		echo "<div class='col-sm-4 myimages'><a id='my_img".$i."' class='btn btn-warning my_img' onClick=image_grab('".$image_uri."');>".$image_name."</a></div>";
     	}
 
     } else {

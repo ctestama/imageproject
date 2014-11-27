@@ -81,3 +81,13 @@
 	max-height: 200px;
 	width: auto;
 }
+
+.myimages {
+	margin-top: 10px;
+	
+}
+
+.my_img {
+	overflow: hidden;
+	max-width: 100%;
+}
