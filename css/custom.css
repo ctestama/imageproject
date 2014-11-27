@@ -11,8 +11,19 @@
 	padding-left: 10%;
 }
 
+#footer {
+	width: 100%;
+	height: 75px;
+	background-color: darkgreen;
+	margin-top: 200px;
+}
+
 #header span {
 	font-size: 14px;
+}
+
+#front_page_content .container {
+	margin-top: 30px;
 }
 
 #login_reg {
@@ -23,7 +34,7 @@
     border-width: 5px;
     border-radius: 5px;
 
-}
+}f
 
 #login_reg form {
 	margin-top: 30px;
@@ -67,6 +78,6 @@
 }
 
 #profile_img {
-	max-width: 200px;
-	height: auto;
+	max-height: 200px;
+	width: auto;
 }
