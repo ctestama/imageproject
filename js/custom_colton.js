@@ -10,10 +10,12 @@ $( document ).ready(function() {
             this.brightness(ev.value).render();
         });
        
-        $('#slide_view').html(ev.value);*/
+        */
         Caman("#image_pop", source, function () {
             this.brightness(ev.value).render();
+            $('#slide_view').html(ev.value);
         });
+        
 
   });
 });
