@@ -29,7 +29,7 @@ if(isset($_SESSION['LOGIN_STATUS'] )&& $_SESSION['LOGIN_STATUS']) {
     </div>
 
     <div class="container">
-        <div class="col-md-12" id="edit_container">
+        <div class="col-md-12 jumbotron" id="edit_container">
             <div class="slide_container">
                 <span>Control Image Brightness</span> <input class="span2"
                 data-slider-max="50" data-slider-min="-50"

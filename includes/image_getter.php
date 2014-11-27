@@ -5,9 +5,11 @@ include('image_functions.php');
 
 if(isset($_SESSION['LOGIN_STATUS'])&&$_SESSION['LOGIN_STATUS']&&isset($_SESSION['uid'])) {
 	$user_id = $_SESSION['uid'];
-	echo "<div class='col-md-12'><div>Your Images</div>";
+	echo "<div id='image_panel' class='panel panel-default'><div class='panel-heading'>Your Images</div>
+	<div class='panel-body'>";
 	imageGetter($mysqli, $user_id);
-	echo "</div>";
+	echo "</div>
+	</div>";
 } else {
 	echo "<div>Sorry! We had trouble retrieving your images.  Try logging in again.</div>";
 }
