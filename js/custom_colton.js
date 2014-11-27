@@ -44,10 +44,14 @@ function image_grab(img) {
         context.drawImage(image, 0, 0);
       };
 
-    image.src = img + '?dummay='+ Math.random();
-    $('#image_slide').attr({value: 0});
-    $('#edit_container').slideDown();
+    image.src = img + '?q='+ Math.random();
 
+    $('#edit_container').slideDown();
+    $('#image_slide').attr({value: 0});
+    $('.slider-selection').attr({style: "left:50%;"});
+    $('.slider-handle').attr({style: "left:50%;"});
+    $('#image_pop').removeAttr('data-caman-id');
+    $('#slide_view').html(0);
 }
 
 
