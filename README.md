@@ -1,7 +1,7 @@
 The Emerald
 ============
 
-Image sharing site where users can upload and edit images.
+Image sharing site where users can upload and edit images.  This site is now up and running on cloud host digitalocean.com at the domain:     testamarck.com/emerald
 
 
 
