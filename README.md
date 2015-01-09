@@ -1,7 +1,7 @@
 The Emerald
 ============
 
-Clas project for an image sharing site where users can upload and edit images.  
+Class project for an image sharing site where users can upload and edit images.  
 
 
 
